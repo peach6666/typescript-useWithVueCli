@@ -3,6 +3,9 @@ import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
 import Product from '../views/Product.vue'
 import Order from '../views/Order.vue'
+import WaterSports from '../components/waterSports.vue'
+import Soccer from '../components/soccer.vue'
+import Chess from '../components/chess.vue'
 
 Vue.use(VueRouter)
 
@@ -18,7 +21,7 @@ const routes: Array<RouteConfig> = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component:Product
+    component:Product,
   },
   {
     path: '/order',

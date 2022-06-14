@@ -1,7 +1,15 @@
 <template>
   <div>
     <h1>商品頁</h1>
-    <p v-for="item in products" :key="item.id">
+    <section>
+      <ul>
+        <li @click="categoryFilter('All')">All</li>
+        <li @click="categoryFilter('WaterSports')">WaterSports</li>
+        <li @click="categoryFilter('Soccer')">Soccer</li>
+        <li @click="categoryFilter('Chess')">Chess</li>
+      </ul>
+    </section>
+    <p v-for="item in showProducts" :key="item.id">
       <img :src="require(`../assets/${item.img}.jpg`)">
       商品:{{item.name}}
       價格:{{item.price}}
@@ -19,18 +27,17 @@ import { mapState,mapGetters,mapMutations,mapActions } from 'vuex'
 import {Product} from '../data/entitled'
 
 export default{
-  data(){
-    return{
-    }
-  },
   computed:{
     ...mapState([
-      //等同於this.$store.state.products
-      'products',
+      //等同於this.$store.state.showProducts
+      'showProducts',
       'orderProducts'
     ]),
   },
   methods:{
+    ...mapMutations([
+      'categoryFilter'
+    ]),
     ...mapActions([
       //等同於$store.dispatch('getProducts')
       'getProducts',
@@ -55,8 +62,9 @@ export default{
     }
   },
   mounted(){
-    this.$nextTick(()=>{
-      this.getProducts()
+    this.$nextTick(async()=>{
+      await this.getProducts()
+      this.categoryFilter('All')
     })
   }
 }

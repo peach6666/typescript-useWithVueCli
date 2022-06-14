@@ -11,6 +11,7 @@ export default new Vuex.Store({
   //例如state.order:{"buyingProducts:87"}為引進order模組的state的狀態
   state: {
     products:null as any,
+    showProducts:null as any,
     orderProducts:null as any,
     cartProducts:null as any
   },
@@ -21,6 +22,15 @@ export default new Vuex.Store({
     fillCart(state,data){
       state.cartProducts=data
     },
+    categoryFilter(state,category){
+      if(category==="All"){
+        state.showProducts=state.products
+      }else{
+        state.showProducts=state.products.filter((item:any)=>{
+          return item.category===category
+        })
+      }
+    }
   },
   actions: {
     getProducts(mutation){
@@ -28,26 +38,19 @@ export default new Vuex.Store({
         mutation.commit('fillProducts',res.data)
       })
     },
-    async addProducts({dispatch}){
-      await dispatch('getCart')
-      await this.state.cartProducts.forEach((element:any) => {
-        console.log(element)
-        if(this.state.orderProducts.name===element.name){
-          element.firstQuantity+=this.state.orderProducts.firstQuantity
-        }else{
-          return axios.post('/api/orders',{
-            name:this.state.orderProducts.name,
-            price:this.state.orderProducts.price,
-            img:this.state.orderProducts.img,
-            quantity:this.state.orderProducts.quantity,
-            firstQuantity:this.state.orderProducts.firstQuantity
-          })
-        }
+    addProducts(){
+      return axios.post('/api/orders',{
+        content:this.state.orderProducts
       })
     },
     getCart(mutation){
       return axios.get('/api/orders').then((res)=>{
         mutation.commit('fillCart',res.data)
+      })
+    },
+    deleteProducts(mutation,id){
+      return axios.delete(`/api/orders/${id}`).then(()=>{
+        this.dispatch('getCart')
       })
     }
   },

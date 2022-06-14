@@ -2,13 +2,14 @@
     <div>
         <h1>購物車</h1>
         <p v-for="item in cartProducts" :key="item.id">
-        <img :src="require(`../assets/${item.img}.jpg`)">
-        商品名稱:{{item.name}}
-        商品價格:{{item.price}}
-        庫存:{{item.quantity}}
+        <img :src="require(`../assets/${item.content.img}.jpg`)">
+        商品:{{item.content.name}}
+        商品價格:{{item.content.price}}元
+        購買數量:{{item.content.firstQuantity}}
+        總價:{{item.content.price*item.content.firstQuantity}}元
+        <button @click="deleteProducts(item.id)">刪除商品</button>
         </p>
-        {{cartProducts}}
-        {{testThing}}
+        <button>確認購買</button>
     </div>
 </template>
 
@@ -17,11 +18,6 @@ import { mapState,mapGetters,mapMutations,mapActions } from "vuex"
 import {Product} from '../data/entitled'
 
 export default{
-    data(){
-        return{
-            testThing:null
-        }
-    },
     computed:{
       ...mapState([
         'cartProducts'
@@ -29,7 +25,8 @@ export default{
     },
     methods:{
       ...mapActions([
-          'getCart'
+          'getCart',
+          'deleteProducts'
       ]),
       testTs(prop:string):void{
         alert(prop)
