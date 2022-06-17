@@ -3,9 +3,6 @@ import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
 import Product from '../views/Product.vue'
 import Order from '../views/Order.vue'
-import WaterSports from '../components/waterSports.vue'
-import Soccer from '../components/soccer.vue'
-import Chess from '../components/chess.vue'
 
 Vue.use(VueRouter)
 

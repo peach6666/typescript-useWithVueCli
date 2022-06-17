@@ -1,33 +1,30 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">首頁</router-link> |
-      <router-link to="/product">商品頁</router-link> |
-      <router-link to="/order">購物車</router-link>
-    </div>
+    <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container-fluid">
+        <router-link to="/" class="navbar-brand" href="#">屁曲購物</router-link>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+          <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+            <li class="nav-item">
+              <router-link to="/" class="nav-link active" aria-current="page">首頁</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/product" class="nav-link">產品</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/order" class="nav-link">購物車</router-link>
+            </li>
+          </ul>
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
     <router-view/>
   </div>
 </template>
-
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>

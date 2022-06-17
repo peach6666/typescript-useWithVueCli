@@ -10,23 +10,23 @@ export default new Vuex.Store({
   //引用store模組，會多包一層
   //例如state.order:{"buyingProducts:87"}為引進order模組的state的狀態
   state: {
-    products:null as any,
-    showProducts:null as any,
-    orderProducts:null as any,
-    cartProducts:null as any
+    products:[] as Product[],
+    showProducts:[] as Product[],
+    orderProducts:[] as Product[],
+    cartProducts:[] as Product[]
   },
   mutations: {
-    fillProducts(state,data){
+    fillProducts(state,data:Product[]){
       state.products=data
     },
-    fillCart(state,data){
+    fillCart(state,data:Product[]){
       state.cartProducts=data
     },
-    categoryFilter(state,category){
+    categoryFilter(state,category:string){
       if(category==="All"){
         state.showProducts=state.products
       }else{
-        state.showProducts=state.products.filter((item:any)=>{
+        state.showProducts=state.products.filter((item:Product)=>{
           return item.category===category
         })
       }
@@ -48,7 +48,7 @@ export default new Vuex.Store({
         mutation.commit('fillCart',res.data)
       })
     },
-    deleteProducts(mutation,id){
+    deleteProducts(mutation,id:number){
       return axios.delete(`/api/orders/${id}`).then(()=>{
         this.dispatch('getCart')
       })
